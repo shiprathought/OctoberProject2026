@@ -15,7 +15,7 @@ console.log(await page.getByRole('heading',{level:2}).allInnerTexts());
 // await page.getByRole('textbox', { name: 'Search' }).fill('iphone');
 // await page.locator('button.btn.btn-default.btn-lg').click();
 
-
+console.log("hi");
 
 
 });
