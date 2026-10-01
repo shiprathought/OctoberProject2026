@@ -6,4 +6,8 @@ export class SearchPage extends BasePage{
   constructor(page:Page){
         super(page);
   }
+
+
+
+  
 }
