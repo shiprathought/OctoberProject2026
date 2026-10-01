@@ -39,6 +39,10 @@ export class LoginPage extends BasePage {
 
     async isMyaccountPresent(){
         return await this.myAccount.isVisible();
+        
     }
+
+   
+    
 
 }
