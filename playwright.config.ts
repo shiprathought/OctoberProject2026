@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
-import path from 'path';
+
 import reportingLabs from './reporting-labs.config';
 
 /**
@@ -51,7 +51,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
      baseURL: process.env.BASE_URL!,
-     headless: !process.env.CI? false :true,
+     headless: !process.env.CI ? false : true,
      trace: 'on-first-retry',
      screenshot: 'only-on-failure',
      video: 'retain-on-failure',
