@@ -10,7 +10,7 @@ import reportingLabs from './reporting-labs.config';
 // import dotenv from 'dotenv';
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
-  const ENV= process.env.ENV || 'sit';
+  const ENV= process.env.ENV || 'qa';
   dotenv.config({path:`config/.env.${ENV}`});
 
 /**
