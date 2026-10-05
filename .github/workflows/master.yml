@@ -184,7 +184,7 @@ jobs:
       - name: Checkout scram repo
         uses: actions/checkout@v4
         with:
-          repository: naveenanimation20/OpenCartWebAPIAutomationFramework
+          repository: shiprathought/OctoberProject2026
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -235,7 +235,7 @@ jobs:
           npm install -g allure-commandline
           allure generate allure-results --clean -o allure-report
 
-      - name: Upload QA HTML Report
+      - name: Upload SCRAM HTML Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -283,7 +283,7 @@ jobs:
       - name: Checkout QA repo
         uses: actions/checkout@v4
         with:
-          repository: naveenanimation20/OpenCartWebAPIAutomationFramework
+          repository: shiprathought/OctoberProject2026
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -382,7 +382,7 @@ jobs:
       - name: Checkout QA repo
         uses: actions/checkout@v4
         with:
-          repository: naveenanimation20/OpenCartWebAPIAutomationFramework
+          repository: shiprathought/OctoberProject2026
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
