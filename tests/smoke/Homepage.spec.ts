@@ -9,7 +9,7 @@ test.beforeEach('loginstep',async({loginPage})=>{
   
 });
 
-test('headers validation', async({homePage,page})=>{
+test('@regression headers validation', async({homePage,page})=>{
   meta({priority:'P2',severity:'minor',owner:'Shipra',feature:'Homepage',story:'Header validation'});
      let allheaders= await homePage.allHeaders();
      await page.waitForTimeout(2);
@@ -20,7 +20,7 @@ test('headers validation', async({homePage,page})=>{
 
 });
 
-test('@regressionhomepage title validation', async({homePage})=>{
+test('@regression homepage title validation', async({homePage})=>{
   meta
  const pagetitle= await homePage.getHomepageTitle();
  console.log(pagetitle);

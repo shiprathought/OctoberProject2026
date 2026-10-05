@@ -12,18 +12,19 @@ on:
       environment:
         description: 'Select environment'
         required: true
-        default: 'sit'
+        default: 'qa'
         type: choice
         options:
-          - sit
-          - scram
+          - dev
+          - qa
+          - stage
           - prod
 
 jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    environment: ${{ github.event.inputs.environment || 'sit' }}
+    environment: ${{ github.event.inputs.environment || 'qa' }}
 
     steps:
       - name: Checkout code
@@ -59,13 +60,13 @@ jobs:
         uses: actions/cache@v4
         with:
           path: reporting-labs.history.json
-          key: reporting-labs-history-${{ github.event.inputs.environment || 'sit' }}-${{ github.run_id }}
-          restore-keys: reporting-labs-history-${{ github.event.inputs.environment || 'sit' }}-
+          key: reporting-labs-history-${{ github.event.inputs.environment || 'qa' }}-${{ github.run_id }}
+          restore-keys: reporting-labs-history-${{ github.event.inputs.environment || 'qa' }}-
 
       - name: Run tests
         run: npx playwright test --project=chromium
         env:
-          ENV: ${{ github.event.inputs.environment || 'sit' }}
+          ENV: ${{ github.event.inputs.environment || 'qa' }}
           BASE_URL: ${{ secrets.BASE_URL }}
           User_Credential: ${{ secrets.User_Credential }}
           Pass_Credential: ${{ secrets.Pass_Credential }}
