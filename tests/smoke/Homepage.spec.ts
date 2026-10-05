@@ -20,7 +20,7 @@ test('headers validation', async({homePage,page})=>{
 
 });
 
-test('homepage title validation', async({homePage})=>{
+test('@regression homepage title validation', async({homePage})=>{
   meta
  const pagetitle= await homePage.getHomepageTitle();
  console.log(pagetitle);

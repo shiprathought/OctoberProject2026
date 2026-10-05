@@ -2,7 +2,7 @@ import{test,expect} from '../../fixtures/pageFixture';
 import {LoginPage} from '../../pages/LoginPage';
 import * as allure from 'allure-js-commons';
 
-test('user login validation', async({loginPage,homePage})=>{
+test('@regression user login validation', async({loginPage,homePage})=>{
   allure.suite('smoke');
   allure.severity('critical');
   allure.story('Login functionality');
