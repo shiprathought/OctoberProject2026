@@ -168,7 +168,7 @@ jobs:
   deploy-scram:
     name: Deploy to scram
     needs: sanity-dev
-    if: contains(fromJSON('["scram","sit","Prod"]'), github.event.inputs.environment)
+    if: contains(fromJSON('["scram","sit","prod"]'), github.event.inputs.environment)
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to scram
@@ -177,7 +177,7 @@ jobs:
   regression-scram:
     name: scram - Regression Tests
     needs: deploy-scram
-    if: contains(fromJSON('["scram","sit","Prod"]'), github.event.inputs.environment)
+    if: contains(fromJSON('["scram","sit","prod"]'), github.event.inputs.environment)
     runs-on: ubuntu-latest
     environment: scram
     steps:
@@ -193,7 +193,7 @@ jobs:
           cache: 'npm'
 
       - name: Cache Playwright browsers
-        id: pw-cache-qa
+        id: pw-cache-scram
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
@@ -203,19 +203,19 @@ jobs:
         run: npm ci
 
       - name: Install Playwright browsers
-        if: steps.pw-cache-qa.outputs.cache-hit != 'true'
+        if: steps.pw-cache-scram.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps chromium
 
       - name: Install Playwright OS deps only
-        if: steps.pw-cache-qa.outputs.cache-hit == 'true'
+        if: steps.pw-cache-scram.outputs.cache-hit == 'true'
         run: npx playwright install-deps chromium
 
       - name: Restore reportingLabs history
         uses: actions/cache@v4
         with:
           path: reporting-labs.history.json
-          key: reporting-labs-history-qa-${{ github.run_id }}
-          restore-keys: reporting-labs-history-qa-
+          key: reporting-labs-history-scram-${{ github.run_id }}
+          restore-keys: reporting-labs-history-scram-
 
       - name: Run Regression Tests on scram
         run: |
@@ -239,23 +239,23 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: qa-regression-html-report
+          name: scram-regression-html-report
           path: reports/html-report/
           retention-days: 30
 
-      - name: Upload QA Allure Report
+      - name: Upload SCRAM Allure Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: qa-regression-allure-report
+          name: scram-regression-allure-report
           path: allure-report/
           retention-days: 30
 
-      - name: Upload QA reportingLabs Report
+      - name: Upload SCRAM reportingLabs Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: qa-regression-reportinglabs-report
+          name: scram-regression-reportinglabs-report
           path: reporting-labs/
           retention-days: 30
 
@@ -263,24 +263,24 @@ jobs:
   # STEP 4: DEPLOY sit + SANITY TESTS
   #   ➜ Runs when: sit or Prod
   # ═════════════════════════════════════════════════════
-  deploy-stage:
-    name: Deploy to sit
+  deploy-SIT:
+    name: Deploy to SIT
     needs: regression-scram
-    if: contains(fromJSON('["sit","Prod"]'), github.event.inputs.environment)
+    if: contains(fromJSON('["sit","prod"]'), github.event.inputs.environment)
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to sit
-        run: echo "Deployed to sit ✅"
+      - name: Deploy to SIT
+        run: echo "Deployed to SIT ✅"
 
-  sanity-stage:
-    name: sit - Sanity Tests
-    needs: deploy-sit
-    if: contains(fromJSON('["sit","Prod"]'), github.event.inputs.environment)
+  sanity-sit:
+    name: SIT - Sanity Tests
+    needs: deploy-SIT
+    if: contains(fromJSON('["sit","prod"]'), github.event.inputs.environment)
     runs-on: ubuntu-latest
     environment: sit
 
     steps:
-      - name: Checkout QA repo
+      - name: Checkout scram repo
         uses: actions/checkout@v4
         with:
           repository: shiprathought/OctoberProject2026
@@ -292,7 +292,7 @@ jobs:
           cache: 'npm'
 
       - name: Cache Playwright browsers
-        id: pw-cache-stage
+        id: pw-cache-sit
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
@@ -302,19 +302,19 @@ jobs:
         run: npm ci
 
       - name: Install Playwright browsers
-        if: steps.pw-cache-stage.outputs.cache-hit != 'true'
+        if: steps.pw-cache-sit.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps chromium
 
       - name: Install Playwright OS deps only
-        if: steps.pw-cache-stage.outputs.cache-hit == 'true'
+        if: steps.pw-cache-sit.outputs.cache-hit == 'true'
         run: npx playwright install-deps chromium
 
       - name: Restore reportingLabs history
         uses: actions/cache@v4
         with:
           path: reporting-labs.history.json
-          key: reporting-labs-history-stage-${{ github.run_id }}
-          restore-keys: reporting-labs-history-stage-
+          key: reporting-labs-history-sit-${{ github.run_id }}
+          restore-keys: reporting-labs-history-sit-
 
       - name: Run Sanity Tests on sit
         run: |
@@ -364,10 +364,10 @@ jobs:
   # ═════════════════════════════════════════════════════
   deploy-prod:
     name: Deploy to PROD
-    needs: sanity-stage
-    if: github.event.inputs.environment == 'Prod'
+    needs: sanity-scram
+    if: github.event.inputs.environment == 'prod'
     runs-on: ubuntu-latest
-    environment: Prod
+    environment: prod
     steps:
       - name: Deploy to PROD
         run: echo "Deployed to PROD ✅"
@@ -375,11 +375,11 @@ jobs:
   smoke-prod:
     name: PROD - Smoke Tests
     needs: deploy-prod
-    if: github.event.inputs.environment == 'Prod'
+    if: github.event.inputs.environment == 'prod'
     runs-on: ubuntu-latest
-    environment: Prod
+    environment: prod
     steps:
-      - name: Checkout QA repo
+      - name: Checkout scram repo
         uses: actions/checkout@v4
         with:
           repository: shiprathought/OctoberProject2026
@@ -462,7 +462,7 @@ jobs:
   # ═════════════════════════════════════════════════════
   summary:
     name: Pipeline Summary
-    needs: [build, sanity-dev, regression-qa, sanity-stage, smoke-prod]
+    needs: [build, sanity-dev, regression-scram, sanity-sit, smoke-prod]
     if: always()
     runs-on: ubuntu-latest
     steps:
@@ -475,8 +475,8 @@ jobs:
           echo "─────────────────────────────────────────"
           echo "  Build + Unit:    ${{ needs.build.result }}"
           echo "  DEV Sanity:      ${{ needs.sanity-dev.result }}"
-          echo "  QA Regression:   ${{ needs.regression-qa.result }}"
-          echo "  STAGE Sanity:    ${{ needs.sanity-stage.result }}"
+          echo "  SCRAM Regression:   ${{ needs.regression-scram.result }}"
+          echo "  SIT Sanity:    ${{ needs.sanity-sit.result }}"
           echo "  PROD Smoke:      ${{ needs.smoke-prod.result }}"
           echo "═══════════════════════════════════════════"
           echo ""
