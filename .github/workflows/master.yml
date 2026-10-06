@@ -167,7 +167,7 @@ jobs:
   deploy-qa:
     name: Deploy to QA
     needs: sanity-dev
-    if: contains(fromJSON('["QA","stage","Prod"]'), github.event.inputs.environment)
+    if: contains(fromJSON('["qa","stage","prod"]'), github.event.inputs.environment)
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to QA
@@ -176,9 +176,9 @@ jobs:
   regression-qa:
     name: QA - Regression Tests
     needs: deploy-qa
-    if: contains(fromJSON('["QA","stage","Prod"]'), github.event.inputs.environment)
+    if: contains(fromJSON('["qa","stage","prod"]'), github.event.inputs.environment)
     runs-on: ubuntu-latest
-    environment: QA
+    environment: qa
     steps:
       - name: Checkout QA repo
         uses: actions/checkout@v4
