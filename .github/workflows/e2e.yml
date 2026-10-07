@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════════════════
-# FILE: .github/workflows/master-pipeline.yml
+# FILE: .github/workflows/e2e-pipeline.yml
 # REPO: shiprathought/OctoberProject2026
 # DEV REPO: jglick/simple-maven-project-with-tests
 # ═══════════════════════════════════════════════════════════════
@@ -11,7 +11,7 @@
 #   Prod  → Build → DEV → QA → STAGE → PROD
 # ═══════════════════════════════════════════════════════════════
 
-name: Master CI/CD Pipeline
+name: end-to-end CI/CD Pipeline
 
 on:
   workflow_dispatch:
