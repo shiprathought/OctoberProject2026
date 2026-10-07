@@ -1,0 +1,2 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"Test to validate user login functionality","2818","@regression @smoke user login validation","chromium","2026-10-07","passed","2026-10-07","","smoke","",""
