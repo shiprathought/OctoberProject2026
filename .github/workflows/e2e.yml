@@ -500,7 +500,7 @@ jobs:
             echo "overall=✅ ALL PASSED" >> $GITHUB_OUTPUT
           fi
 
-          REPORT_BASE="https://naveenanimation20.github.io/OpenCartWebAPIAutomationFramework/runs/${{ github.run_id }}"
+          REPORT_BASE=REPORT_BASE="https://shiprathought.github.io/OctoberProject2026/runs/${{ github.run_id }}"
           echo "report_url=${REPORT_BASE}" >> $GITHUB_OUTPUT
 
       - name: Download All Reports
