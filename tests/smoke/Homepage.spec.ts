@@ -30,4 +30,8 @@ test('@regression homepage title validation', async({homePage})=>{
 
 });
 
+test('simple fail test',async({homePage})=>{
+  
+  expect(await homePage.allHeaders()).toBe(['Home','Shop','Blog','Contact']);
+})
 
