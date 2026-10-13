@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"Test to validate user login functionality","2866","@regression @smoke user login validation","chromium","2026-10-13","passed","2026-10-13","","smoke","",""
+"","3235","@regression homepage title validation","chromium","2026-10-13","passed","2026-10-13","","smoke/Homepage.spec.ts","",""
+"","3003","@regression headers validation","chromium","2026-10-13","passed","2026-10-13","","smoke/Homepage.spec.ts","",""
